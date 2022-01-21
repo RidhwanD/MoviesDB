@@ -20,30 +20,32 @@ function retrieveGenres(genres, props) {
 
 function MovieList() {
 
-  const deleteBtn = async id => {
-    APIService.DeleteMovie(id)
-    // loadUsers();
-  };
-
   const [genres, setGenres] = useState([])
-  const [movies, setMovies] = useState([])
 
-  const loadGenres = async () => {
+  useEffect(() => {
     APIService.ObtainAllGenres()
     .then(resp => setGenres(resp))
     .catch(error => console.log(error))
-  }
+  }, [])
 
-  const loadMovies = async () => {
+  const [movies, setMovies] = useState([])
+
+  useEffect(() => {
     APIService.ObtainAllMovies()
     .then(resp => setMovies(resp))
     .catch(error => console.log(error))
-  }
-
-  useEffect(() => {
-    loadGenres()
-    loadMovies()
   }, [])
+
+  const deleteBtn = async id => {
+    APIService.DeleteMovie(id)
+    const new_movies = movies.filter(movie => {
+      if(movie.id === id) {
+        return false
+      }
+      return true;
+    })
+    setMovies(new_movies)
+  };
 
   return (
     <div>
@@ -70,10 +72,10 @@ function MovieList() {
                    <td>{retrieveGenres(movie.genres, genres)}</td>
                    <td>{movie.rating}</td>
                    <td>
-                    <Link className="btn btn-primary mr-2" to={`/movies/${movie.id}`} target="_blank">
+                    <Link className="btn btn-primary mr-2" to={`/movies/${movie.id}`}>
                       View
                     </Link>
-                    <button className="btn btn-danger" onClick={() => deleteBtn(movie.id)}>
+                    <button className="btn btn-danger" onClick={() => {if (window.confirm('Are you sure you wish to delete this item?')) deleteBtn(movie.id)}}>
                       Delete
                     </button>
                   </td>
