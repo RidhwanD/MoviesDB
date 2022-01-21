@@ -19,7 +19,7 @@ function App(props) {
         <Routes>
           <Route exact path="/" element={<MovieList />} />
           <Route exact path="/movies/:id" element={<Movie />} />
-          <Route element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </Router>

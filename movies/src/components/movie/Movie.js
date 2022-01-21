@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
 import APIService from '../../APIService'
+import { useNavigate } from 'react-router-dom';
 
 function retrieveGenres(genres, props) {
   var result = ""
@@ -19,16 +20,15 @@ function retrieveGenres(genres, props) {
 
 function getButton(link) {
   if (link) {
-    console.log(link)
-    return <a href={link} class="btn btn-outline-info" role="button" target="_blank">Watch Here</a>
+    return <a href={link} className="btn btn-outline-info" role="button" target="_blank">Watch Here</a>
   } else {
-    return <a href={link} class="btn btn-outline-info disabled" role="button">Watch Here</a>
+    return <a href={link} className="btn btn-outline-info disabled" role="button">Watch Here</a>
   }
 }
 
 function Movie() {
-
-  const { id } = useParams();
+  let navigate = useNavigate()
+  const { id } = useParams()
 
   const [genres, setGenres] = useState([])
   useEffect(() => {
@@ -44,6 +44,11 @@ function Movie() {
     .then(resp => setMovie(resp))
     .catch(error => console.log(error))
   }, [])
+
+  const deleteBtn = async id => {
+    APIService.DeleteMovie(id)
+    navigate('../../');
+  };
 
   return (
     <div className="container py-4">
@@ -83,6 +88,15 @@ function Movie() {
             <td>Watch</td>
             <td>:</td>
             <td>{getButton(movie.watch)}</td>
+          </tr>
+          <tr>
+            <td>
+              <button className="btn btn-danger" onClick={() => {if (window.confirm('Are you sure you wish to delete this item?')) deleteBtn(movie.id)}}>
+                Delete
+              </button>
+            </td>
+            <td></td>
+            <td></td>
           </tr>
         </tbody>
       </table>
