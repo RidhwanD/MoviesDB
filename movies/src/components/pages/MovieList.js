@@ -1,10 +1,11 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
+import APIService from '../../APIService'
 
 function retrieveGenres(genres, props) {
   var result = ""
-  if (props) {
+  if (genres, props) {
     for (let i = 0; i < genres.length; i++) {
       for (let j = 0; j < props.length; j++) {
         if (genres[i] === props[j].id) {
@@ -18,17 +19,14 @@ function retrieveGenres(genres, props) {
 }
 
 function MovieList() {
+  const deleteBtn = (movie) => {
+
+  }
+
   const [genres, setGenres] = useState([])
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/genres/', {
-      'method':'GET',
-      headers: {
-        'Content-Type':'application/json',
-        'Authorization':'Token 95b8869fa90cda6c23932ab1a7d66e7c3995483e'
-      }
-    })
-    .then(resp => resp.json())
+    APIService.ObtainAllGenres()
     .then(resp => setGenres(resp))
     .catch(error => console.log(error))
   }, [])
@@ -36,50 +34,51 @@ function MovieList() {
   const [movies, setMovies] = useState([])
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/movies/', {
-      'method':'GET',
-      headers: {
-        'Content-Type':'application/json',
-        'Authorization':'Token 95b8869fa90cda6c23932ab1a7d66e7c3995483e'
-      }
-    })
-    .then(resp => resp.json())
+    APIService.ObtainAllMovies()
     .then(resp => setMovies(resp))
     .catch(error => console.log(error))
   }, [])
 
   return (
-    <div className="main-table">
-      <table className="table table-striped table-dark table-hover">
-        <thead className="thead-dark">
-          <tr>
-            <th>No.</th>
-            <th>Title</th>
-            <th>Genre</th>
-            <th>Rating</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {movies && movies.map((movie, index) => {
-            return (
-              <tr key={movie.id}>
-                 <td>{index+1}</td>
-                 <td>{movie.title}</td>
-                 <td>{retrieveGenres(movie.genres, genres)}</td>
-                 <td>{movie.rating}</td>
-                 <td>
-                  <Link className="btn btn-primary mr-2" to={`/movies/${movie.id}`}>
-                    View
-                  </Link>
-                </td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
+    <div>
+      <div className="title">
+        <h1>Movie List</h1>
+      </div>
+      <div className="main-table">
+        <table className="table table-striped table-dark table-hover">
+          <thead className="thead-dark">
+            <tr>
+              <th>No.</th>
+              <th>Title</th>
+              <th>Genre</th>
+              <th>Rating</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {movies && movies.map((movie, index) => {
+              return (
+                <tr key={movie.id}>
+                   <td>{index+1}</td>
+                   <td>{movie.title}</td>
+                   <td>{retrieveGenres(movie.genres, genres)}</td>
+                   <td>{movie.rating}</td>
+                   <td>
+                    <Link className="btn btn-primary mr-2" to={`/movies/${movie.id}`}>
+                      View
+                    </Link>
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }
 
+// <Link className="btn btn-danger" onClick={deleteBtn}>
+//   Delete
+// </Link>
 export default MovieList

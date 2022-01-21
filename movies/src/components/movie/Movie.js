@@ -1,20 +1,38 @@
-import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react"
+import { Link, useParams } from "react-router-dom"
+import APIService from '../../APIService'
 
-const Movie = () => {
+function retrieveGenres(genres, props) {
+  var result = ""
+  if (props && genres) {
+    for (let i = 0; i < genres.length; i++) {
+      for (let j = 0; j < props.length; j++) {
+        if (genres[i] === props[j].id) {
+          result += props[j].name + " "
+          break
+        }
+      }
+    }
+  }
+  return result
+}
+
+function getButton(link) {
+  if (link) {
+    console.log(link)
+    return <a href={link} class="btn btn-outline-info" role="button">Watch Here</a>
+  } else {
+    return <a href={link} class="btn btn-outline-info disabled" role="button">Watch Here</a>
+  }
+}
+
+function Movie() {
 
   const { id } = useParams();
 
   const [genres, setGenres] = useState([])
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/genres/', {
-      'method':'GET',
-      headers: {
-        'Content-Type':'application/json',
-        'Authorization':'Token 95b8869fa90cda6c23932ab1a7d66e7c3995483e'
-      }
-    })
-    .then(resp => resp.json())
+    APIService.ObtainAllGenres()
     .then(resp => setGenres(resp))
     .catch(error => console.log(error))
   }, [])
@@ -22,14 +40,7 @@ const Movie = () => {
   const [movie, setMovie] = useState([])
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/movies/${id}`, {
-      'method':'GET',
-      headers: {
-        'Content-Type':'application/json',
-        'Authorization':'Token 95b8869fa90cda6c23932ab1a7d66e7c3995483e'
-      }
-    })
-    .then(resp => resp.json())
+    APIService.RetrieveMovie(id)
     .then(resp => setMovie(resp))
     .catch(error => console.log(error))
   }, [])
@@ -37,7 +48,7 @@ const Movie = () => {
   return (
     <div className="container py-4">
       <Link className="btn btn-primary" to="/">
-        back to Home
+        Back to Home
       </Link>
       <h1 className="display-4">{movie.title}</h1>
       <hr />
@@ -46,7 +57,7 @@ const Movie = () => {
           <tr>
             <td>Genre</td>
             <td>:</td>
-            <td>{movie.username}</td>
+            <td>{retrieveGenres(movie.genres, genres)}</td>
           </tr>
           <tr>
             <td>Rating</td>
@@ -66,12 +77,12 @@ const Movie = () => {
           <tr>
             <td>Trailer</td>
             <td>:</td>
-            <td>{movie.trailer}</td>
+            <td>{getButton(movie.trailer)}</td>
           </tr>
           <tr>
             <td>Watch</td>
             <td>:</td>
-            <td>{movie.watch}</td>
+            <td>{getButton(movie.watch)}</td>
           </tr>
         </tbody>
       </table>

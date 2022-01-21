@@ -10,7 +10,14 @@
 }
 
 .main-table {
-  padding: 100px;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.title {
+  text-align: center;
+  padding-bottom: 20px;
+  padding-top: 20px;
 }
 
 @keyframes App-logo-spin {
