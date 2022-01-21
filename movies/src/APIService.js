@@ -43,4 +43,14 @@ export default class APIService {
       }
     })
   }
+
+  static AddMovie(body) {
+    return fetch(`${this.mainUrl}/api/movies/`, {
+      'method':'POST',
+      headers: {
+        'Content-Type':'application/json',
+        'Authorization':'Token 95b8869fa90cda6c23932ab1a7d66e7c3995483e'
+      }, body:JSON.stringify(body)
+    })
+  }
 }

@@ -24,7 +24,7 @@ const Navbar = () => {
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
               <NavLink className="nav-link" exact to="/">
-                Movies
+                Home
               </NavLink>
             </li>
           </ul>

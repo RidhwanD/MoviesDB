@@ -72,7 +72,7 @@ function MovieList() {
                    <td>{retrieveGenres(movie.genres, genres)}</td>
                    <td>{movie.rating}</td>
                    <td>
-                    <Link className="btn btn-primary mr-2" to={`/movies/${movie.id}`}>
+                    <Link className="btn btn-primary mr-2" to={`/movies/${movie.id}`} target="_blank">
                       View
                     </Link>
                     <button className="btn btn-danger" onClick={() => {if (window.confirm('Are you sure you wish to delete this item?')) deleteBtn(movie.id)}}>

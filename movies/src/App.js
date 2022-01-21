@@ -3,6 +3,7 @@ import MovieList from './components/pages/MovieList';
 import NotFound from "./components/pages/NotFound";
 import Navbar from "./components/layout/Navbar";
 import Movie from "./components/movie/Movie";
+import AddMovie from "./components/movie/AddMovie";
 import {
   BrowserRouter as Router,
   Route,
@@ -17,8 +18,9 @@ function App(props) {
         <Navbar/>
 
         <Routes>
-          <Route exact path="/" element={<MovieList />} />
-          <Route exact path="/movies/:id" element={<Movie />} />
+          <Route path="/" element={<MovieList />} />
+          <Route path="/movies/add" element={<AddMovie />} />
+          <Route path="/movies/:id" element={<Movie />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
