@@ -20,7 +20,7 @@ function retrieveGenres(genres, props) {
 function getButton(link) {
   if (link) {
     console.log(link)
-    return <a href={link} class="btn btn-outline-info" role="button">Watch Here</a>
+    return <a href={link} class="btn btn-outline-info" role="button" target="_blank">Watch Here</a>
   } else {
     return <a href={link} class="btn btn-outline-info disabled" role="button">Watch Here</a>
   }

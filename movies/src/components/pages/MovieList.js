@@ -19,24 +19,30 @@ function retrieveGenres(genres, props) {
 }
 
 function MovieList() {
-  const deleteBtn = (movie) => {
 
-  }
+  const deleteBtn = async id => {
+    APIService.DeleteMovie(id)
+    // loadUsers();
+  };
 
   const [genres, setGenres] = useState([])
+  const [movies, setMovies] = useState([])
 
-  useEffect(() => {
+  const loadGenres = async () => {
     APIService.ObtainAllGenres()
     .then(resp => setGenres(resp))
     .catch(error => console.log(error))
-  }, [])
+  }
 
-  const [movies, setMovies] = useState([])
-
-  useEffect(() => {
+  const loadMovies = async () => {
     APIService.ObtainAllMovies()
     .then(resp => setMovies(resp))
     .catch(error => console.log(error))
+  }
+
+  useEffect(() => {
+    loadGenres()
+    loadMovies()
   }, [])
 
   return (
@@ -64,9 +70,12 @@ function MovieList() {
                    <td>{retrieveGenres(movie.genres, genres)}</td>
                    <td>{movie.rating}</td>
                    <td>
-                    <Link className="btn btn-primary mr-2" to={`/movies/${movie.id}`}>
+                    <Link className="btn btn-primary mr-2" to={`/movies/${movie.id}`} target="_blank">
                       View
                     </Link>
+                    <button className="btn btn-danger" onClick={() => deleteBtn(movie.id)}>
+                      Delete
+                    </button>
                   </td>
                 </tr>
               )
@@ -78,7 +87,4 @@ function MovieList() {
   )
 }
 
-// <Link className="btn btn-danger" onClick={deleteBtn}>
-//   Delete
-// </Link>
 export default MovieList
