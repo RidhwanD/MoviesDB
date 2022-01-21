@@ -5,14 +5,12 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Route, Routes, BrowserRouter} from 'react-router-dom';
-import Form from './components/Form'
 
 function Router() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/login" element={<Form />} />
       </Routes>
     </BrowserRouter>
   )
