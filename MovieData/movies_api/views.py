@@ -1,10 +1,19 @@
-from django.shortcuts import get_object_or_404
 from .models import Movie
-from .serializers import MovieSerializer
-from rest_framework import viewsets, mixins
+from .serializers import MovieSerializer, UserSerializer
+from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.models import User
 
 # Create your views here.
 
 class MovieViewSet(viewsets.ModelViewSet):
     serializer_class = MovieSerializer
     queryset = Movie.objects.all()
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
