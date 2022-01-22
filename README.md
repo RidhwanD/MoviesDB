@@ -13,7 +13,7 @@ This is a simple application for a movies database for learning experience. The 
 
 1. Go to the back-end folder.
 
-        cd MoviesDB\MovieCRDS
+        cd MovieCRDS
 
 2. Create a virtual environtment using Python and activate it.
 3. Install all requirements
@@ -23,6 +23,8 @@ This is a simple application for a movies database for learning experience. The 
 4. To run the API server:
 
         python manage.py runserver
+
+5. Documentation of the API is available in `127.0.0.1:8000/docs/`
 
 
 ##### ReactJS Front-end
