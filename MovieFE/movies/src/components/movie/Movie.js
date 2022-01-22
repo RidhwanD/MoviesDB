@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Link, useParams, useNavigate } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import APIService from '../../APIService'
 
 
@@ -32,7 +32,6 @@ function getButton(link) {
 }
 
 function Movie() {
-  let navigate = useNavigate()
   const { id } = useParams()
 
   const [movie, setMovie] = useState([])

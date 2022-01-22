@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import APIService from '../../APIService'
 
 function retrieveGenres(genres) {
@@ -21,7 +21,6 @@ const isEmpty = (result) => {
 }
 
 const Search = () => {
-	const search = 'search';
 	const [appState, setAppState] = useState({
 		search: '',
 		movies: [],

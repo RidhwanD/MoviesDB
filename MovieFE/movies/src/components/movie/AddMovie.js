@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import APIService from '../../APIService'
 
 const initialState = {
@@ -13,7 +13,6 @@ const initialState = {
 }
 
 const AddMovie = () => {
-  let navigate = useNavigate()
   const [movie, setMovie] = useState(initialState);
 
   const [allGenres, setAllGenres] = useState([])

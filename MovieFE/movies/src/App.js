@@ -8,8 +8,7 @@ import Search from "./components/movie/Search";
 import {
   BrowserRouter as Router,
   Route,
-  Routes,
-  withRouter
+  Routes
 } from "react-router-dom";
 
 function App(props) {
