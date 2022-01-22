@@ -12,6 +12,14 @@ function retrieveGenres(genres) {
   return result
 }
 
+const isEmpty = (result) => {
+  if (result.length === 0) {
+    return (
+      <tr><td colspan="5"><em>No data found.</em></td></tr>
+    )
+  }
+}
+
 const Search = () => {
 	const search = 'search';
 	const [appState, setAppState] = useState({
@@ -73,6 +81,7 @@ const Search = () => {
                 </tr>
               )
             })}
+            {isEmpty(appState.movies)}
           </tbody>
         </table>
       </div>
