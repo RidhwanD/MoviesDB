@@ -2,6 +2,17 @@ import React, { useState, useEffect } from "react"
 import { Link, useParams, useNavigate } from "react-router-dom"
 import APIService from '../../APIService'
 
+
+const emptyMovie = {
+  title: "",
+  genres: [],
+  rating: "",
+  duration: "",
+  quality: "",
+  trailer: "",
+  watch: ""
+}
+
 function retrieveGenres(genres) {
   var result = ""
   if (genres) {
@@ -34,7 +45,7 @@ function Movie() {
 
   const deleteBtn = async id => {
     APIService.DeleteMovie(id)
-    navigate('../../');
+    setMovie(emptyMovie)
   };
 
   return (

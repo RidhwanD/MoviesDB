@@ -17,6 +17,7 @@ const AddMovie = () => {
   const [movie, setMovie] = useState(initialState);
 
   const [allGenres, setAllGenres] = useState([])
+
   useEffect(() => {
     APIService.ObtainAllGenres()
     .then(resp => setAllGenres(resp))
@@ -24,6 +25,7 @@ const AddMovie = () => {
   }, [])
 
   const { title, genres, rating, duration, quality, trailer, watch } = movie;
+
   const onInputChange = e => {
     setMovie({ ...movie, [e.target.name]: e.target.value });
   };
@@ -40,8 +42,6 @@ const AddMovie = () => {
   };
 
   const clearState = (resp) => {
-    console.log(resp)
-    console.log(resp.status)
     if (resp.status === 201) {
       window.alert('Movie is added succesfully')
       setMovie({ ...initialState });
@@ -55,7 +55,6 @@ const AddMovie = () => {
     APIService.AddMovie(movie)
     .then(resp => clearState(resp))
     .catch(error => console.log(error))
-    // navigate('../../');
   };
 
   return (
