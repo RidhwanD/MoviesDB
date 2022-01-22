@@ -1,0 +1,35 @@
+.App {
+  min-height: 100vh;
+  background-color: #282c34;
+  color: white;
+  padding: 20px;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.main-table {
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.search-bar {
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.title {
+  text-align: center;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
