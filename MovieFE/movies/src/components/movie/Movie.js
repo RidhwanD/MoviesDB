@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
 import APIService from '../../APIService'
 
-
+// Initialize an empty movie data.
 const emptyMovie = {
   title: "",
   genres: [],
@@ -13,6 +13,7 @@ const emptyMovie = {
   watch: ""
 }
 
+// A function to retrieve genres as a string from a list of genre objects.
 function retrieveGenres(genres) {
   var result = ""
   if (genres) {
@@ -23,6 +24,7 @@ function retrieveGenres(genres) {
   return result
 }
 
+// A function to generate a button if the provided link exists. Otherwise, generate a disabled button.
 function getButton(link) {
   if (link) {
     return <a href={link} className="btn btn-outline-info" role="button" target="_blank">Watch Here</a>
@@ -32,8 +34,10 @@ function getButton(link) {
 }
 
 function Movie() {
+  // Obtain the id from the URL parameter.
   const { id } = useParams()
 
+  // Use the API to obtain a movie data using the API.
   const [movie, setMovie] = useState([])
 
   useEffect(() => {
@@ -42,6 +46,7 @@ function Movie() {
     .catch(error => console.log(error))
   }, [])
 
+  // Delete button handler using the API. Show empty movie after a successful delete.
   const deleteBtn = async id => {
     APIService.DeleteMovie(id)
     setMovie(emptyMovie)

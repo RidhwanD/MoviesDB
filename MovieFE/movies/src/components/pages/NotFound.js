@@ -1,5 +1,6 @@
 import React from "react";
 
+// A handler for URLs that are not routed.
 const NotFound = () => {
   return (
     <div className="not-found">

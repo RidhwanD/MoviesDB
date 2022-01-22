@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import APIService from '../../APIService'
 
+// Define an initial state for the input data
 const initialState = {
   title: "",
   genres: [],
@@ -13,33 +14,41 @@ const initialState = {
 }
 
 const AddMovie = () => {
+
+  // Initialize movie using the initial state.
   const [movie, setMovie] = useState(initialState);
 
+  // Obtain all genres to be added in the selection HTML input.
   const [allGenres, setAllGenres] = useState([])
-
   useEffect(() => {
     APIService.ObtainAllGenres()
     .then(resp => setAllGenres(resp))
     .catch(error => console.log(error))
   }, [])
 
+  // Initialize the movie data by using movie variable
   const { title, genres, rating, duration, quality, trailer, watch } = movie;
 
+  // Update the movie variable everytime a change is made in the input forms.
   const onInputChange = e => {
     setMovie({ ...movie, [e.target.name]: e.target.value });
   };
 
+  // A separate handle for the multiple selection input for genres.
   const handleChange = e => {
     var options = e.target.options;
+    // Reseting the selected values everytime a change is made
     var value = [];
     for (var i = 0, l = options.length; i < l; i++) {
       if (options[i].selected) {
+        // If the opsion is selected, add its value to the list of selected values.
         value.push(options[i].value);
       }
     }
     setMovie({ ...movie, [e.target.name]: value });
   };
 
+  // Clear the input forms using the initial state everytime a movie data is successfully added.
   const clearState = (resp) => {
     if (resp.status === 201) {
       window.alert('Movie is added succesfully')
@@ -49,6 +58,7 @@ const AddMovie = () => {
     }
   };
 
+  // If the submit button is clicked, use the API to add movie data to the database.
   const onSubmit = async e => {
     e.preventDefault();
     APIService.AddMovie(movie)

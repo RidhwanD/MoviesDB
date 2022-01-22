@@ -6,11 +6,14 @@ const Navbar = () => {
   let navigate = useNavigate();
 	const [data, setData] = useState({ search: '' });
 
+  // Create an event handler for search bar.
 	const goSearch = (e) => {
+    // Add the path for search in the history stack.
 		navigate({
 			pathname: '/search/',
 			search: '?search=' + data.search,
 		});
+    // Reload the page with the path addition to obtain result.
 		window.location.reload();
 	};
 

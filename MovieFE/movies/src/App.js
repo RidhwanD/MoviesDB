@@ -12,6 +12,7 @@ import {
 } from "react-router-dom";
 
 function App(props) {
+  // Define router to each supported URLs.
   return (
     <Router>
       <div className="App">

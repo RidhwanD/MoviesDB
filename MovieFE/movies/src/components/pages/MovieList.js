@@ -2,6 +2,7 @@ import { React, useState, useEffect } from 'react'
 import { Link } from "react-router-dom"
 import APIService from '../../APIService'
 
+// A function to retrieve genres as a string from a list of genre objects.
 function retrieveGenres(genres) {
   var result = ""
   if (genres) {
@@ -13,15 +14,17 @@ function retrieveGenres(genres) {
 }
 
 function MovieList() {
-
+  // Initialize the list of movies.
   const [movies, setMovies] = useState([])
 
+  // Use the API to retrieve all movies data from the database.
   useEffect(() => {
     APIService.ObtainAllMovies()
     .then(resp => setMovies(resp))
     .catch(error => console.log(error))
   }, [])
 
+  // Delete button handler using the API. Show the list of remaining movies if successful
   const deleteBtn = async id => {
     APIService.DeleteMovie(id)
     const new_movies = movies.filter(movie => {
