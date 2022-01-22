@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useState } from 'react';
 import { Link, NavLink } from "react-router-dom";
+import SearchBar from 'material-ui-search-bar';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+  let navigate = useNavigate();
+	const [data, setData] = useState({ search: '' });
+
+	const goSearch = (e) => {
+		navigate({
+			pathname: '/search/',
+			search: '?search=' + data.search,
+		});
+		window.location.reload();
+	};
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
@@ -29,7 +42,13 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-
+        <div className="search-bar">
+  				<SearchBar
+  					value={data.search}
+  					onChange={(newValue) => setData({ search: newValue })}
+  					onRequestSearch={() => goSearch(data.search)}
+  				/>
+        </div>
         {<Link className="btn btn-outline-light" to="/movies/add">Add Movie</Link>}
       </div>
     </nav>
