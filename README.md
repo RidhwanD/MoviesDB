@@ -2,12 +2,12 @@
 
 This is a simple application for a movies database for learning experience. The supported functionalities are View, Add, Delete, and Search for movies data.
 
-#### Requirements:
+### Requirements:
 
-1. Python >= 3.9
-2. ReactJS =< 16.14.0
+1. `Python >= 3.9`
+2. `ReactJS =< 16.14.0`
 
-#### Installations in local:
+### Installations in local:
 
 ##### API Back-end
 
