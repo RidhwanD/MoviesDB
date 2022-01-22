@@ -42,6 +42,16 @@ function MovieList() {
         <h1>Movie List</h1>
       </div>
       <div className="main-table">
+        <div>
+          <a className="btn btn-primary"
+            href={`data:text/json;charset=utf-8,${encodeURIComponent(
+              JSON.stringify(movies)
+            )}`}
+            download="movies.json"
+          >
+            {'Download Json'}
+          </a>
+        </div>
         <table className="table table-striped table-dark table-hover">
           <thead className="thead-dark">
             <tr>
