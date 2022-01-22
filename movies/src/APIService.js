@@ -45,7 +45,7 @@ export default class APIService {
   }
 
   static AddMovie(body) {
-    return fetch(`${this.mainUrl}/api/movies/`, {
+    return fetch(`${this.mainUrl}/api/movies-add/`, {
       'method':'POST',
       headers: {
         'Content-Type':'application/json',

@@ -1,32 +1,18 @@
-import React from 'react'
-import {useState, useEffect} from 'react'
+import { React, useState, useEffect } from 'react'
 import { Link } from "react-router-dom"
 import APIService from '../../APIService'
 
-function retrieveGenres(genres, props) {
+function retrieveGenres(genres) {
   var result = ""
-  if (genres, props) {
+  if (genres) {
     for (let i = 0; i < genres.length; i++) {
-      for (let j = 0; j < props.length; j++) {
-        if (genres[i] === props[j].id) {
-          result += props[j].name + " "
-          break
-        }
-      }
+      result += genres[i].name + " "
     }
   }
   return result
 }
 
 function MovieList() {
-
-  const [genres, setGenres] = useState([])
-
-  useEffect(() => {
-    APIService.ObtainAllGenres()
-    .then(resp => setGenres(resp))
-    .catch(error => console.log(error))
-  }, [])
 
   const [movies, setMovies] = useState([])
 
@@ -69,14 +55,14 @@ function MovieList() {
                 <tr key={movie.id}>
                    <td>{index+1}</td>
                    <td>{movie.title}</td>
-                   <td>{retrieveGenres(movie.genres, genres)}</td>
+                   <td>{retrieveGenres(movie.genres)}</td>
                    <td>{movie.rating}</td>
                    <td>
                     <Link className="btn btn-primary mr-2" to={`/movies/${movie.id}`} target="_blank">
                       View
                     </Link>
                     <button className="btn btn-danger" onClick={() => {if (window.confirm('Are you sure you wish to delete this item?')) deleteBtn(movie.id)}}>
-                      Delete
+                      <span className="glyphicon glyphicon-trash"></span> Delete
                     </button>
                   </td>
                 </tr>

@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useParams, useNavigate } from "react-router-dom"
 import APIService from '../../APIService'
-import { useNavigate } from 'react-router-dom';
 
-function retrieveGenres(genres, props) {
+function retrieveGenres(genres) {
   var result = ""
-  if (props && genres) {
+  if (genres) {
     for (let i = 0; i < genres.length; i++) {
-      for (let j = 0; j < props.length; j++) {
-        if (genres[i] === props[j].id) {
-          result += props[j].name + " "
-          break
-        }
-      }
+      result += genres[i].name + " "
     }
   }
   return result
@@ -29,13 +23,6 @@ function getButton(link) {
 function Movie() {
   let navigate = useNavigate()
   const { id } = useParams()
-
-  const [genres, setGenres] = useState([])
-  useEffect(() => {
-    APIService.ObtainAllGenres()
-    .then(resp => setGenres(resp))
-    .catch(error => console.log(error))
-  }, [])
 
   const [movie, setMovie] = useState([])
 
@@ -62,7 +49,7 @@ function Movie() {
           <tr>
             <td>Genre</td>
             <td>:</td>
-            <td>{retrieveGenres(movie.genres, genres)}</td>
+            <td>{retrieveGenres(movie.genres)}</td>
           </tr>
           <tr>
             <td>Rating</td>
