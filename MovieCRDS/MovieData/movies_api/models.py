@@ -1,6 +1,9 @@
 from django.db import models
 
-# Create your models here.
+# 'Genre' model class.
+# Containing:
+# - 'id' as primary key, and
+# - 'name' of the genre.
 class Genre(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100, null=False)
@@ -9,6 +12,16 @@ class Genre(models.Model):
         return self.name
 
 
+# 'Movie' model class.
+# Containing:
+# - 'id' as primary key,
+# - 'title' of the movie,
+# - 'genres' of the movie as a many-to-many relationship with the class Genre,
+# - 'rating' of the movie in the scale of 1 to 10,
+# - 'duration' of the movie,
+# - 'quality' of the provided movie URL,
+# - 'trailer' URL of the movie, and
+# - 'watch' URL of the movie.
 class Movie(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100, null=False)
