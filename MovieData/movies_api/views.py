@@ -1,5 +1,5 @@
 from .models import Movie, Genre
-from .serializers import MovieSerializer, UserSerializer, GenreSerializer
+from .serializers import MovieSerializer, UserSerializer, GenreSerializer, MovieAddSerializer
 from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -10,6 +10,12 @@ from rest_framework import filters
 
 class MovieViewSet(viewsets.ModelViewSet):
     serializer_class = MovieSerializer
+    queryset = Movie.objects.all()
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+class MovieAddViewSet(viewsets.ModelViewSet):
+    serializer_class = MovieAddSerializer
     queryset = Movie.objects.all()
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]

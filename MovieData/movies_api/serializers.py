@@ -15,6 +15,14 @@ class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = '__all__'
+        depth = 1
+
+
+class MovieAddSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Movie
+        fields = '__all__'
 
 
 class UserSerializer(serializers.ModelSerializer):
