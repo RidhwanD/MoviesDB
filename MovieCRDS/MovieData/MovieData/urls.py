@@ -16,9 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token
+from rest_framework.schemas import get_schema_view
+from rest_framework.documentation import include_docs_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('movies_api.urls')),
-    path('auth/', obtain_auth_token)
+    path('api/', include('movies_api.urls')),
+    path('auth/', obtain_auth_token),
+    path('docs/', include_docs_urls(title="MovieAPI")),
+    path('schema', get_schema_view(
+        title="MovieAPI",
+        description="API for the MovieAPI",
+        version="1.0.0"
+    ), name='openapi-schema')
 ]

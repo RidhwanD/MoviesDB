@@ -25,6 +25,5 @@ router.register('search', MovieFilterViewSet, basename="Search")
 router.register('users', UserViewSet)
 
 urlpatterns = [
-    path('api/', include(router.urls)),
-    path('api/<int:pk>/', include(router.urls))
+    path('', include(router.urls)),
 ]

@@ -1,6 +1,6 @@
 from .models import Movie, Genre
 from .serializers import MovieSerializer, UserSerializer, GenreSerializer, MovieAddSerializer
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
@@ -16,7 +16,7 @@ class MovieViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
 # ModelViewSet for adding new movie data
-class MovieAddViewSet(viewsets.ModelViewSet):
+class MovieAddViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     serializer_class = MovieAddSerializer
     queryset = Movie.objects.all()
     authentication_classes = [TokenAuthentication]      # Authentication is required.
@@ -35,7 +35,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
 
 # ModelViewSet for searching a movie based on a query
-class MovieFilterViewSet(viewsets.ModelViewSet):
+class MovieFilterViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     serializer_class = MovieSerializer
     queryset = Movie.objects.all()
     filter_backends = [filters.SearchFilter]            # Only using basic search filter.
