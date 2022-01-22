@@ -1,36 +1,24 @@
 from django.db import models
 
 # 'Genre' model class.
-# Containing:
-# - 'id' as primary key, and
-# - 'name' of the genre.
 class Genre(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100, null=False)
+    id = models.AutoField(primary_key=True, help_text=("Unique alphanumeric identifier"))
+    name = models.CharField(max_length=100, null=False, help_text=("A string stating the name of the genre"))
 
     def __str__(self):
         return self.name
 
 
 # 'Movie' model class.
-# Containing:
-# - 'id' as primary key,
-# - 'title' of the movie,
-# - 'genres' of the movie as a many-to-many relationship with the class Genre,
-# - 'rating' of the movie in the scale of 1 to 10,
-# - 'duration' of the movie,
-# - 'quality' of the provided movie URL,
-# - 'trailer' URL of the movie, and
-# - 'watch' URL of the movie.
 class Movie(models.Model):
-    id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=100, null=False)
-    genres = models.ManyToManyField(Genre)
-    rating = models.FloatField(null=True, blank=True)
-    duration = models.IntegerField(null=True, blank=True)
-    quality = models.CharField(max_length=10, null=True, blank=True)
-    trailer = models.URLField(null=True, blank=True)
-    watch = models.URLField(null=True, blank=True)
+    id = models.AutoField(primary_key=True, help_text=("Unique alphanumeric identifier"))
+    title = models.CharField(max_length=100, null=False, help_text=("A string stating the title of the movie"))
+    genres = models.ManyToManyField(Genre, help_text=("The list of genres of the movie"))
+    rating = models.FloatField(null=True, blank=True, help_text=("A float stating the rating of the movie in range 0 - 10"))
+    duration = models.IntegerField(null=True, blank=True, help_text=("An integer specifying the duration of the movie in hour"))
+    quality = models.CharField(max_length=10, null=True, blank=True, help_text=("A string determining the quality of the movie video"))
+    trailer = models.URLField(null=True, blank=True, help_text=("A URL pointing to the movie trailer"))
+    watch = models.URLField(null=True, blank=True, help_text=("A URL pointing to the movie video"))
 
     def __str__(self):
         return self.title
